@@ -32,8 +32,11 @@ io.on("connection", (socket) => {//kết nối với socket.io
             io.to(user.socketId).emit("getNotification", {//hàm này phát sự kiện đến socketId của trong mảng onlineUser, có object data là senderId, isRead, date
                 senderId: message.senderId,
                 isRead: false,
-                date: new Date()
+                date: new Date(),
+                id:message._id
+                
             })
+            
 
         }
     })
