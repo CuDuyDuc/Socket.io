@@ -1,3 +1,4 @@
+const { default: axios } = require("axios");
 const { Server } = require("socket.io");
 
 const io = new Server({
@@ -21,17 +22,7 @@ io.on("connection", (socket) => {//kết nối với socket.io
         io.emit("getOnlineUsers", onlineUser)//emit là phát sự kiện có io.emit(event,data), hàm này có nghĩa là sẽ phát data là mảng onlineUser và có sự kiện là getOnlineUsers
         //bên client sẽ on để lắng nghe sự kiện và nhận được mảng onlineUser thông qua callBack
     });
-    socket.on("markMessagesAsRead",async (chat) => {
-        try {
-            const res = await axios.put(`http://192.168.1.22:3000/api/messages/update-count-isread/${chat._id}`)
-            if(res){
-                console.log('update isRead thành công')
-                io.emit("notificationUpdated", 0);
-            }
-        } catch (error) {
-            console.error("update isRead lỗi: ", error);
-        }
-    });
+   
     socket.on("sendMessage", (message) => {//lắng nghe sự kiện sendMessage từ client và nhận data thông qua callBack
         const user = onlineUser.find(user => user.userId === message.recipientId)//hàm này có nghĩa là tìm trong onlineUser nếu userId nào bằng với recipientId từ client phát sự kiện
         //recipient này có nghĩa là id của người nhận từ bên client gửi qua, trả về user có userId bằng recipientId từ mảng onlineUser''
