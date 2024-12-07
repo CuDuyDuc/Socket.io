@@ -1,7 +1,7 @@
 const { default: axios } = require("axios");
 const { Server } = require("socket.io");
-
- app.get("/", (req, res) => {
+const app = express();
+app.get("/", (req, res) => {
   res.send("Socket.IO Server is Running!");
 });
 const io = new Server({
