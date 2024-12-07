@@ -1,6 +1,9 @@
 const { default: axios } = require("axios");
 const { Server } = require("socket.io");
 
+ app.get("/", (req, res) => {
+  res.send("Socket.IO Server is Running!");
+});
 const io = new Server({
     cors: {
         origin: "*", // Cho phép tất cả các nguồn truy cập
