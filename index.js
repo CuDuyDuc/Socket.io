@@ -1,10 +1,7 @@
 const { default: axios } = require("axios");
 const { Server } = require("socket.io");
-const express = require("express");
-const http = require("http");
-const app = express();
-const server = http.createServer(app);
-const io = new Server(server,{
+
+const io = new Server({
     cors: {
         origin: "*", // Cho phép tất cả các nguồn truy cập
         methods: ["GET", "POST"],//cho phép các phương thức get post
@@ -51,6 +48,7 @@ io.on("connection", (socket) => {//kết nối với socket.io
         io.emit("getOnlineUsers", onlineUser)
     })
 });
-server.listen(5000, () => {
-  console.log(`Server is running on port ${port}`);
+
+io.listen(5000, () => {
+    console.log("Server is listening on port 5000");
 });
